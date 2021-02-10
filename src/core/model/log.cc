@@ -199,6 +199,10 @@ LogComponent::EnvVarCheck (void)
                     {
                       level |= LOG_WARN;
                     }
+                  else if (lev == "test")
+                    {
+                      level |= LOG_TEST;
+                    }
                   else if (lev == "debug")
                     {
                       level |= LOG_DEBUG;
@@ -248,6 +252,10 @@ LogComponent::EnvVarCheck (void)
                   else if (lev == "level_warn")
                     {
                       level |= LOG_LEVEL_WARN;
+                    }
+                  else if (lev == "level_test")
+                    {
+                      level |= LOG_LEVEL_TEST;
                     }
                   else if (lev == "level_debug")
                     {
@@ -341,6 +349,10 @@ LogComponent::GetLevelLabel(const enum LogLevel level)
     {
       // whitespace left at the end for alignment
       return "WARN ";
+    }
+  else if (level == LOG_TEST)
+    {
+      return "TEST";
     }
   else if (level == LOG_DEBUG)
     {
@@ -457,6 +469,10 @@ LogComponentPrintList (void)
             {
               std::cout << "|warn";
             }
+          if (i->second->IsEnabled (LOG_TEST))
+            {
+              std::cout << "|test";
+            }
           if (i->second->IsEnabled (LOG_DEBUG))
             {
               std::cout << "|debug";
@@ -472,7 +488,8 @@ LogComponentPrintList (void)
           if (i->second->IsEnabled (LOG_LOGIC))
             {
               std::cout << "|logic";
-            }
+            }            
+          
         }
       if (i->second->IsEnabled (LOG_PREFIX_ALL))
         {
@@ -581,6 +598,7 @@ static void CheckEnvironmentVariables (void)
                   std::string lev = tmp.substr (cur_lev, next_lev - cur_lev);
                   if (lev == "error"
                       || lev == "warn"
+                      || lev == "test"
                       || lev == "debug"
                       || lev == "info"
                       || lev == "function"
@@ -597,10 +615,12 @@ static void CheckEnvironmentVariables (void)
                       || lev == "prefix_all"
                       || lev == "level_error"
                       || lev == "level_warn"
+                      || lev == "level_test"
                       || lev == "level_debug"
                       || lev == "level_info"
                       || lev == "level_function"
-                      || lev == "level_logic"
+                      || lev == "level_logic"                     
+                  
                       || lev == "level_all"
                       || lev == "*"
                       || lev == "**"

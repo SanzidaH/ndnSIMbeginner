@@ -99,6 +99,9 @@ enum LogLevel {
   LOG_WARN           = 0x00000002, //!< Warning messages.
   LOG_LEVEL_WARN     = 0x00000003, //!< LOG_WARN and above.
 
+  LOG_TEST           = 0x00000030, //!< Test messages.
+  LOG_LEVEL_TEST     = 0x0000005f, //!< LOG_TEST and above.
+
   LOG_DEBUG          = 0x00000004, //!< Rare ad-hoc debug messages.
   LOG_LEVEL_DEBUG    = 0x00000007, //!< LOG_DEBUG and above.
 
@@ -263,7 +266,15 @@ void LogComponentDisableAll (enum LogLevel level);
  */
 #define NS_LOG_WARN(msg) \
   NS_LOG (ns3::LOG_WARN, msg)
-
+  
+/**
+ * Use \ref NS_LOG to output a message of level LOG_TEST.
+ *
+ * \param [in] msg The message to log.
+ */
+#define NS_LOG_TEST(msg) \
+  NS_LOG (ns3::LOG_TEST, msg)
+  
 /**
  * Use \ref NS_LOG to output a message of level LOG_DEBUG.
  *
